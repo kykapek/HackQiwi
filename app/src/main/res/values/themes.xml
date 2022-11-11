@@ -13,4 +13,70 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Header1" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:fontFamily">@font/rubik_semi_bold</item>
+        <item name="android:textSize">@dimen/header1_text_size</item>
+    </style>
+
+    <style name="Header2" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:fontFamily">@font/rubik_semi_bold</item>
+        <item name="android:textSize">@dimen/header2_text_size</item>
+    </style>
+
+    <style name="Header3" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:fontFamily">@font/rubik_semi_bold</item>
+        <item name="android:textSize">@dimen/header3_text_size</item>
+    </style>
+
+    <style name="Header4" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:fontFamily">@font/rubik_semi_bold</item>
+        <item name="android:textSize">@dimen/header4_text_size</item>
+    </style>
+
+    <style name="Text1" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:fontFamily">@font/rubik_regular</item>
+        <item name="android:textSize">@dimen/text1_text_size</item>
+    </style>
+
+    <style name="Text2" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:fontFamily">@font/rubik_regular</item>
+        <item name="android:textSize">@dimen/text2_text_size</item>
+    </style>
+
+    <style name="Text3" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:fontFamily">@font/rubik_regular</item>
+        <item name="android:textSize">@dimen/text3_text_size</item>
+    </style>
+
+    <style name="Text4" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:fontFamily">@font/rubik_light</item>
+        <item name="android:textSize">@dimen/text4_text_size</item>
+    </style>
+
+    <style name="Text5" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:fontFamily">@font/rubik_light</item>
+        <item name="android:textSize">@dimen/text5_text_size</item>
+    </style>
+
+    <style name="Numbers1" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:fontFamily">@font/rubik_regular</item>
+        <item name="android:textSize">@dimen/numbers1_text_size</item>
+    </style>
+
+    <style name="Numbers2" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:fontFamily">@font/rubik_semi_bold</item>
+        <item name="android:textSize">@dimen/numbers2_text_size</item>
+    </style>
 </resources>
