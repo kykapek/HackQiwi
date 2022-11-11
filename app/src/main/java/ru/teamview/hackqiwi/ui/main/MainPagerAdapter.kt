@@ -16,8 +16,8 @@ class MainPagerAdapter(
 
     private fun fullMenu(): ArrayList<Fragment> {
         return arrayListOf(
-            BuyerFragment(),
             SellerFragment(),
+            BuyerFragment()
         )
     }
 
