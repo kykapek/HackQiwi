@@ -6,4 +6,5 @@
 
     <string name="error_description_text">Кажется, нет интернета. Проверьте сеть и перезагрузите приложение — это должно помочь</string>
     <string name="error_title">Что-то здесь не так…</string>
+    <string name="generated_qr_code">Сгенерированный QR Код</string>
 </resources>

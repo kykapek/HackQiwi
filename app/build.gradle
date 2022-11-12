@@ -90,4 +90,7 @@ dependencies {
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
+    // QRGenerator
+    implementation 'com.github.androidmads:QRGenerator:1.0.1'
 }
