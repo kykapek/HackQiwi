@@ -1,8 +1,10 @@
 package ru.teamview.hackqiwi.di
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,6 +12,9 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.teamview.hackqiwi.ROOT_API
+import ru.teamview.hackqiwi.data.datasource.TempDataSource
+import ru.teamview.hackqiwi.data.repository.TempBillsRepository
+import ru.teamview.hackqiwi.data.service.TempApiService
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -63,4 +68,16 @@ object AppModule {
 
         return retrofit.build()
     }
+
+    @Singleton
+    @Provides
+    fun provideTempBillsRepository(tempDataSource: TempDataSource) = TempBillsRepository(tempDataSource)
+
+    @Singleton
+    @Provides
+    fun provideTempApiService(retrofit: Retrofit) : TempApiService = retrofit.create(TempApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideTempDataSource(tempApiService: TempApiService) = TempDataSource(tempApiService)
 }

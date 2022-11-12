@@ -3,6 +3,7 @@ package ru.teamview.hackqiwi.ui.main.buyer
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidmads.library.qrgenearator.QRGContents
 import androidmads.library.qrgenearator.QRGEncoder
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import dagger.hilt.android.AndroidEntryPoint
 import ru.teamview.hackqiwi.databinding.FragmentBuyerBinding
+import ru.teamview.hackqiwi.domain.model.bill.Amount
+import ru.teamview.hackqiwi.domain.model.bill.Bill
+import ru.teamview.hackqiwi.networkUtils.Resource
 
 private var _binding: FragmentBuyerBinding? = null
 private val binding get() = _binding!!
@@ -20,27 +27,26 @@ lateinit var bitmap: Bitmap
 //переменная для хранения энкодера
 lateinit var qrEncoder: QRGEncoder
 
-
+@AndroidEntryPoint
 class BuyerFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        //TODO нормально заимплементить вью модель
-        val viewModel: BuyerFragmentViewModel
-
-    }
+    private val viewModel: BuyerFragmentViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentBuyerBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initUi()
+        setUpBillObserver(Bill(Amount("RUB", 42.24), arrayListOf("QIWI", "SBP"), "Spasibo", "2022-11-13T14:30:00+03:00"))
+    }
+
+    private fun initUi() {
         val qrText = binding.qrTextEditText
         val qrImage = binding.qrImg
 
@@ -78,8 +84,28 @@ class BuyerFragment : Fragment() {
         }
     }
 
+    private fun setUpBillObserver(bill: Bill) {
+        viewModel.getBill(bill).observe(viewLifecycleOwner, Observer {
+            when(it.status) {
+                Resource.Status.SUCCESS -> {
+                    Log.d(TAG, it.data.toString())
+                }
+                Resource.Status.LOADING -> {
+                    Log.d(TAG, it.message.toString())
+                }
+                Resource.Status.ERROR -> {
+                    Log.d(TAG, it.message.toString())
+                }
+            }
+        })
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val TAG = "Buyer"
     }
 }

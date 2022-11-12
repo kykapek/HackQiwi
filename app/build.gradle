@@ -44,7 +44,7 @@ android {
 dependencies {
 
     def hilt_version = "2.38.1"
-    def lifecycle_version = "2.6.0-alpha03"
+    def lifecycle_version = "2.4.0"
     def nav_version = "2.4.2"
     def retrofit_version = "2.9.0"
     def interceptor_version = "4.9.1"
