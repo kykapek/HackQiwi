@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvErrorDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/error_description_text"
+        style="@style/Text4"
+        android:textColor="@color/colorGray8"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/quad_default_margin"
+        android:layout_marginBottom="96dp"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvErrorTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/error_title"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/triple_default_margin"
+        android:layout_marginBottom="@dimen/default_margin"
+        style="@style/Header3"
+        app:layout_constraintBottom_toTopOf="@id/tvErrorDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/ivErrorIcon"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_detective_light"
+        android:layout_marginBottom="@dimen/default_margin"
+        app:layout_constraintStart_toStartOf="@id/tvErrorTitle"
+        app:layout_constraintBottom_toTopOf="@id/tvErrorTitle"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

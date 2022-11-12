@@ -2,4 +2,8 @@
     <string name="app_name">HackQiwi</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="auth_next">Далее</string>
+
+    <string name="error_description_text">Кажется, нет интернета. Проверьте сеть и перезагрузите приложение — это должно помочь</string>
+    <string name="error_title">Что-то здесь не так…</string>
 </resources>
