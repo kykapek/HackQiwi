@@ -93,4 +93,8 @@ dependencies {
 
     // QRGenerator
     implementation 'com.github.androidmads:QRGenerator:1.0.1'
+
+    //QRScanner
+    //implementation("io.github.g00fy2.quickie:quickie-bundled:1.5.2")
+    implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'
 }
