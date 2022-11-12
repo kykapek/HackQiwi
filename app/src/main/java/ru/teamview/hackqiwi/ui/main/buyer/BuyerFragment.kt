@@ -19,16 +19,10 @@ import ru.teamview.hackqiwi.domain.model.bill.Amount
 import ru.teamview.hackqiwi.domain.model.bill.Bill
 import ru.teamview.hackqiwi.networkUtils.Resource
 
-private var _binding: FragmentBuyerBinding? = null
-private val binding get() = _binding!!
-
-//переменная для хранения битмапа
-lateinit var bitmap: Bitmap
-//переменная для хранения энкодера
-lateinit var qrEncoder: QRGEncoder
-
 @AndroidEntryPoint
 class BuyerFragment : Fragment() {
+    private var _binding: FragmentBuyerBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel: BuyerFragmentViewModel by viewModels()
 
@@ -43,15 +37,21 @@ class BuyerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUi()
-        setUpBillObserver(Bill(Amount("RUB", 42.24), arrayListOf("QIWI", "SBP"), "Spasibo", "2022-11-13T14:30:00+03:00"))
     }
 
     private fun initUi() {
         val qrText = binding.qrTextEditText
-        val qrImage = binding.qrImg
 
         binding.getDataForQrBtn.setOnClickListener {
-
+            //запрашиваем по клику данные для генерации QR-кода
+            setUpBillObserver(
+                Bill(
+                    Amount("RUB", 42.24),
+                    arrayListOf("QIWI_WALLET", "SBP"),
+                    "Spasibo",
+                    "2022-11-13T14:30:00+03:00"
+                )
+            )
         }
 
         binding.generateQrBtn.setOnClickListener {
@@ -61,18 +61,13 @@ class BuyerFragment : Fragment() {
                 //выводим тост, если поле пустое
                 Toast.makeText(context, "Enter your message", Toast.LENGTH_SHORT).show()
             } else {
-
-                //@TODO можно написать какой-то свой метод вычисления dimens вместо юза значения "на глаз"
-
                 try {
-                    //инициализируем энкодер
-                    qrEncoder = QRGEncoder(qrText.text.toString(), null, QRGContents.Type.TEXT, 200)
-
-                    //инициализируем битмапу
-                    bitmap = qrEncoder.getBitmap(0)
+                    //используем метод для получения битмапа QR кода из введенного юзером текста
+                    val bitmap = generateQrForBitmap(qrText.text.toString())
 
                     //проставляем битмапу imageView лейаута
-                    qrImage.setImageBitmap(bitmap)
+                    binding.qrImg.setImageBitmap(bitmap)
+
                 } catch (e: Exception) {
 
                     //@TODO добавить вывод какого диалога в юзеринтерфейсе в случае отказа
@@ -86,9 +81,25 @@ class BuyerFragment : Fragment() {
 
     private fun setUpBillObserver(bill: Bill) {
         viewModel.getBill(bill).observe(viewLifecycleOwner, Observer {
-            when(it.status) {
+            when (it.status) {
                 Resource.Status.SUCCESS -> {
                     Log.d(TAG, it.data.toString())
+                    //в случае успешного получения ссылки для выставления счета,
+                    //генерируем из нее битмап QR-кода и отображаем на экране
+                    if (it.data?.payUrl != null) {
+                        try {
+                            val bitmapFromWeb = generateQrForBitmap(it.data.payUrl)
+                            binding.qrImg.setImageBitmap(bitmapFromWeb)
+
+                        } catch (e: Exception) {
+
+                            //@TODO добавить вывод какого диалога в юзеринтерфейсе в случае отказа
+
+                            //выводим стактрейс экспешена в случае отказа
+                            e.printStackTrace()
+                        }
+
+                    }
                 }
                 Resource.Status.LOADING -> {
                     Log.d(TAG, it.message.toString())
@@ -98,6 +109,17 @@ class BuyerFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun generateQrForBitmap(textForQr: String): Bitmap {
+
+        //@TODO можно написать какой-то свой метод вычисления dimens вместо юза значения "на глаз"
+
+        //инициализируем энкодер
+        val qrEncoder = QRGEncoder(textForQr, null, QRGContents.Type.TEXT, 200)
+
+        //получаем и возвращаем битмап QR кода
+        return qrEncoder.getBitmap(0)
     }
 
     override fun onDestroyView() {
