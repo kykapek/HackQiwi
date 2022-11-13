@@ -2,15 +2,16 @@ package ru.teamview.hackqiwi.ui.main.buyer
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.text.InputFilter
 import android.text.TextUtils
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidmads.library.qrgenearator.QRGContents
 import androidmads.library.qrgenearator.QRGEncoder
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,16 +43,11 @@ class BuyerFragment : Fragment() {
     }
 
     private fun initUi() {
-        val qrText = binding.qrTextEditText
         val priceInput = binding.priceInputLayout.editText
         val df = DecimalFormat("#.00")
         df.roundingMode = RoundingMode.DOWN
 
         binding.getDataForQrBtn.setOnClickListener {
-
-            //TODO ТЕСТОВЫЕ ЛОГИ, УДАЛИТЬ
-             val value =  df.format(priceInput?.text.toString().toDouble())
-            Log.d("ASS","$value")
 
             //запрашиваем по клику данные для генерации QR-кода введенные в поле priceInput
             if (TextUtils.isEmpty(priceInput?.text.toString())) {
@@ -64,38 +60,13 @@ class BuyerFragment : Fragment() {
                     Bill(
                         amount = Amount(
                             currency = "RUB",
-                            value =   (priceInput?.text.toString().toDouble())),
-//                            value = df.format(priceInput?.text.toString().toDouble())),
-//                            value = DecimalFormat("#.##").format(priceInput?.text.toString().toBigDecimal()).toDouble()),
-                        arrayListOf("QIWI_WALLET", "SBP"),
-                        "Эквайринг от покупателя",
-                        "2022-11-13T14:30:00+03:00"
+                            value = (priceInput?.text.toString().toFloat())
+                        ),
+                        billPaymentMethodsType =  arrayListOf("QIWI_WALLET", "SBP"),
+                        comment ="Эквайринг от покупателя",
+                        expirationDateTime = "2022-11-13T14:30:00+03:00"
                     )
                 )
-            }
-        }
-
-        binding.generateQrBtn.setOnClickListener {
-            //проверяем не пустое ли поле с текстом
-            if (TextUtils.isEmpty(qrText.text.toString())) {
-
-                //выводим тост, если поле пустое
-                Toast.makeText(context, "Enter your message", Toast.LENGTH_SHORT).show()
-            } else {
-                try {
-                    //используем метод для получения битмапа QR кода из введенного юзером текста
-                    val bitmap = generateQrForBitmap(qrText.text.toString())
-
-                    //проставляем битмапу imageView лейаута
-                    binding.qrImg.setImageBitmap(bitmap)
-
-                } catch (e: Exception) {
-
-                    //@TODO добавить вывод какого диалога в юзеринтерфейсе в случае отказа
-
-                    //выводим стактрейс экспешена в случае отказа
-                    e.printStackTrace()
-                }
             }
         }
     }

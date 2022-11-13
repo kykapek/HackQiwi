@@ -3,7 +3,7 @@ package ru.teamview.hackqiwi.domain.model.bill
 data class Bill(
     val amount: Amount,
     val billPaymentMethodsType: List<String>,
-    val comment: String,
+    val comment: String, //@TODO Отправлять на бэкенд пустым, а там уже подписывать "Оплата выполнена пользователем *Имя*"?
     val expirationDateTime: String
 )
 
