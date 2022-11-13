@@ -18,6 +18,8 @@ import ru.teamview.hackqiwi.databinding.FragmentBuyerBinding
 import ru.teamview.hackqiwi.domain.model.bill.Amount
 import ru.teamview.hackqiwi.domain.model.bill.Bill
 import ru.teamview.hackqiwi.networkUtils.Resource
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 @AndroidEntryPoint
 class BuyerFragment : Fragment() {
@@ -41,17 +43,36 @@ class BuyerFragment : Fragment() {
 
     private fun initUi() {
         val qrText = binding.qrTextEditText
+        val priceInput = binding.priceInputLayout.editText
+        val df = DecimalFormat("#.00")
+        df.roundingMode = RoundingMode.DOWN
 
         binding.getDataForQrBtn.setOnClickListener {
-            //запрашиваем по клику данные для генерации QR-кода
-            setUpBillObserver(
-                Bill(
-                    Amount("RUB", 42.24),
-                    arrayListOf("QIWI_WALLET", "SBP"),
-                    "Spasibo",
-                    "2022-11-13T14:30:00+03:00"
+
+            //TODO ТЕСТОВЫЕ ЛОГИ, УДАЛИТЬ
+             val value =  df.format(priceInput?.text.toString().toDouble())
+            Log.d("ASS","$value")
+
+            //запрашиваем по клику данные для генерации QR-кода введенные в поле priceInput
+            if (TextUtils.isEmpty(priceInput?.text.toString())) {
+
+                //TODO ПЕРЕДЕЛАТЬ НА ВЫВОД ОШИБКИ САМИМ ЭДИТТЕКСТОМ, ЕСЛИ БУДЕТ ВРЕМЯ
+                //выводим тост, если поле пустое
+                Toast.makeText(context, "Введите сумму платежа", Toast.LENGTH_SHORT).show()
+            } else {
+                setUpBillObserver(
+                    Bill(
+                        amount = Amount(
+                            currency = "RUB",
+                            value =   (priceInput?.text.toString().toDouble())),
+//                            value = df.format(priceInput?.text.toString().toDouble())),
+//                            value = DecimalFormat("#.##").format(priceInput?.text.toString().toBigDecimal()).toDouble()),
+                        arrayListOf("QIWI_WALLET", "SBP"),
+                        "Эквайринг от покупателя",
+                        "2022-11-13T14:30:00+03:00"
+                    )
                 )
-            )
+            }
         }
 
         binding.generateQrBtn.setOnClickListener {
