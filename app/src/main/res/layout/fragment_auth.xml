@@ -3,27 +3,138 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
     android:background="@color/colorWhite"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.auth.AuthFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.widget.Button
-        android:id="@+id/btnNext"
+    <TextView
+        android:id="@+id/tvEnter"
         android:layout_width="0dp"
-        android:layout_height="@dimen/gradient_btn_size"
-        android:text="@string/auth_next"
-        android:background="@drawable/bg_gradient_button"
-        android:textAllCaps="false"
-        android:fontFamily="@font/rubik_regular"
-        style="?android:attr/borderlessButtonStyle"
-        android:textSize="@dimen/text2_text_size"
-        android:textColor="@color/colorWhite"
+        android:layout_height="wrap_content"
+        style="@style/Header1"
+        android:layout_marginTop="100dp"
         android:layout_marginStart="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/default_margin"
-        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="70dp"
+        android:text="@string/phone_enter"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/Header1"
+        android:text="@string/phone_number"
+        app:layout_constraintTop_toBottomOf="@id/tvEnter"
+        app:layout_constraintStart_toStartOf="@id/tvEnter"/>
+
+    <TextView
+        android:id="@+id/tvSetup"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/text3_stroke_size"
+        android:gravity="center_vertical"
+        android:textColor="@color/colorGray8"
+        style="@style/Text4"
+        android:text="@string/phone_setup"
+        android:layout_marginTop="@dimen/default_margin"
+        app:layout_constraintTop_toBottomOf="@id/tvNumber"
+        app:layout_constraintStart_toStartOf="@id/tvNumber"/>
+
+    <TextView
+        android:id="@+id/tvSafe"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/text3_stroke_size"
+        android:gravity="center_vertical"
+        android:textColor="@color/colorGray8"
+        android:layout_marginTop="1dp"
+        style="@style/Text4"
+        android:text="@string/phone_safe"
+        app:layout_constraintTop_toBottomOf="@id/tvSetup"
+        app:layout_constraintStart_toStartOf="@id/tvNumber"/>
+
+    <ImageView
+        android:id="@+id/ivPhone"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_phone_hello3"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/semi_default_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSafe"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPhone"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        app:boxBackgroundMode="none"
+        android:background="@drawable/bg_phone_input"
+        android:layout_marginTop="@dimen/semi_default_margin"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        app:hintEnabled="false"
+        app:layout_constraintTop_toBottomOf="@id/ivPhone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="-16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etHide"
+                style="@style/Header1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="false"
+                android:focusable="false"
+                android:autofillHints="phone"
+                android:background="@android:color/transparent"
+                android:hint="@string/phone_default_number"
+                android:importantForAutofill="yes"
+                android:inputType="phone|textAutoComplete"
+                android:minEms="2"
+                android:paddingTop="0dp"
+                android:paddingBottom="5dp"/>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPhone"
+                style="@style/Header1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:autofillHints="phone"
+                android:textCursorDrawable="@drawable/cursor_phone"
+                android:background="@android:color/transparent"
+                android:hint="@string/phone_default_number_code"
+                android:importantForAutofill="yes"
+                android:inputType="phone"
+                android:minEms="2"
+                android:paddingTop="0dp"
+                android:paddingBottom="5dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/vBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:background="@drawable/bg_overlay"/>
+
+    <TextView
+        android:id="@+id/tvToolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        style="@style/Header4"
+        android:textColor="@color/colorWhite"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

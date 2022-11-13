@@ -19,4 +19,11 @@
         tools:layout="@layout/fragment_main">
     </fragment>
 
+    <dialog
+        android:id="@+id/smsBsd"
+        android:name="ru.teamview.hackqiwi.ui.auth.sms.SmsFragment"
+        android:label="smsBSD"
+        tools:layout="@layout/fragment_sms">
+    </dialog>
+
 </navigation>

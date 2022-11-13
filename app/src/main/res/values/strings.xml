@@ -7,4 +7,14 @@
     <string name="error_description_text">Кажется, нет интернета. Проверьте сеть и перезагрузите приложение — это должно помочь</string>
     <string name="error_title">Что-то здесь не так…</string>
     <string name="generated_qr_code">Сгенерированный QR Код</string>
+
+    <string name="phone_enter">Введите</string>
+    <string name="phone_number">номер телефона</string>
+    <string name="phone_setup">Укажите номер вашего телефона, он</string>
+    <string name="phone_safe">останется между нами</string>
+    <string name="phone_default_number"><font color='#272727'>+7 </font>925 123 45 67</string>
+    <string name="phone_default_number_code"><font color='#272727'>+7 </font></string>
+
+    <string name="base_country_code">+7</string>
+    <string name="base_approval">Подтверждение</string>
 </resources>
