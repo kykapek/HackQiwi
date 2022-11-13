@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/authFragment"
+    app:startDestination="@id/splashFragment"
     android:id="@+id/nav_graph">
 
     <fragment
@@ -19,11 +19,18 @@
         tools:layout="@layout/fragment_main">
     </fragment>
 
-    <dialog
+    <fragment
         android:id="@+id/smsBsd"
         android:name="ru.teamview.hackqiwi.ui.auth.sms.SmsFragment"
         android:label="smsBSD"
         tools:layout="@layout/fragment_sms">
-    </dialog>
+    </fragment>
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="ru.teamview.hackqiwi.ui.splash.SplashFragment"
+        android:label="splashFragment"
+        tools:layout="@layout/fragment_splash">
+    </fragment>
 
 </navigation>

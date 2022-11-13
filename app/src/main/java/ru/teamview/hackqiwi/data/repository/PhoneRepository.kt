@@ -18,4 +18,8 @@ class PhoneRepository @Inject constructor(
     fun sendConfirm(sendConfirm: SendConfirm) = liveData(Dispatchers.IO) {
         emit(phoneDataSource.sendConfirm(sendConfirm))
     }
+
+    fun login() = liveData(Dispatchers.IO) {
+        emit(phoneDataSource.login())
+    }
 }

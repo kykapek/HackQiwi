@@ -77,7 +77,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etHide"
+                android:id="@+id/etPhone"
                 style="@style/Header3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -101,6 +101,7 @@
         app:layout_constraintTop_toBottomOf="@id/tilPhone">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             style="@style/Header3"
@@ -110,7 +111,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <android.widget.Button
-        android:id="@+id/btnSetFingerprint"
+        android:id="@+id/btnNext"
         android:layout_width="0dp"
         android:layout_height="@dimen/gradient_btn_size"
         android:text="@string/auth_next"
@@ -126,6 +127,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ProgressBar
+        android:id="@+id/pbAuth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/six_default_margin"
+        android:visibility="gone"
+        android:indeterminateTint="@color/colorPrimary2"
+        android:indeterminateTintMode="src_in"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <View
         android:id="@+id/vBackground"

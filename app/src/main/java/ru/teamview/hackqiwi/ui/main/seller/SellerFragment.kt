@@ -37,7 +37,10 @@ class SellerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //initUi()
-        checkPhotoPermission()
+        mBinding.btnScan.onClick {
+            checkPhotoPermission()
+        }
+        //checkPhotoPermission()
     }
 
     private fun checkPhotoPermission() {

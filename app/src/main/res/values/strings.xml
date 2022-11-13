@@ -10,7 +10,9 @@
 
     <string name="phone_enter">Введите</string>
     <string name="phone_number">номер телефона\nи пароль</string>
+    <string name="phone_sms">код из СМС</string>
     <string name="phone_setup">Укажите номер вашего телефона, он</string>
+    <string name="sms_setup">СМС была отправлена на номер:</string>
     <string name="phone_safe">останется между нами</string>
     <string name="phone_default_number"><font color='#272727'>+7 </font>925 123 45 67</string>
     <string name="phone_default_number_code"><font color='#272727'>+7 </font></string>

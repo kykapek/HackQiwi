@@ -3,8 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorWhite"
     tools:context=".ui.main.seller.SellerFragment">
+
+    <android.widget.Button
+        android:id="@+id/btnScan"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/gradient_btn_size"
+        android:text="Сканировать"
+        android:background="@drawable/bg_gradient_button"
+        android:textAllCaps="false"
+        style="?android:attr/borderlessButtonStyle"
+        android:textSize="@dimen/text2_text_size"
+        android:fontFamily="@font/rubik_regular"
+        android:textColor="@color/colorWhite"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/double_default_margin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <com.budiyev.android.codescanner.CodeScannerView
         android:id="@+id/codeScannerView"

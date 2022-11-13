@@ -1,25 +1,22 @@
 package ru.teamview.hackqiwi.ui.auth
 
-import android.app.ProgressDialog.show
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import ru.teamview.hackqiwi.HackQiwiApp
 import ru.teamview.hackqiwi.R
 import ru.teamview.hackqiwi.databinding.FragmentAuthBinding
-import ru.teamview.hackqiwi.databinding.FragmentMainBinding
-import ru.teamview.hackqiwi.ui.utils.getBaseCountryCode
-import ru.teamview.hackqiwi.ui.utils.hideKeyboard
-import ru.teamview.hackqiwi.ui.utils.onClick
-import ru.teamview.hackqiwi.ui.utils.show
+import ru.teamview.hackqiwi.domain.model.registration.SendRegistration
+import ru.teamview.hackqiwi.networkUtils.Resource
+import ru.teamview.hackqiwi.ui.utils.*
 
 @AndroidEntryPoint
 class AuthFragment : Fragment() {
@@ -46,16 +43,43 @@ class AuthFragment : Fragment() {
     }
 
     private fun initUi() = with(mBinding) {
+        btnNext.onClick {
+            sendRegistration(SendRegistration(etPhone.text.toString(), etPassword.text.toString()))
+            it.hide()
+            pbAuth.show()
+        }
+    }
 
+    private fun sendRegistration(sendRegistration: SendRegistration) {
+        viewModel.sendRegistration(sendRegistration).observe(viewLifecycleOwner, Observer {
+            when(it.status) {
+                Resource.Status.SUCCESS -> {
+                    Log.d(TAG, it.data!!.token)
+                    saveData(it.data.token)
+                    mBinding.btnNext.show()
+                }
+                Resource.Status.LOADING -> {
+                    mBinding.pbAuth.show()
+                    mBinding.btnNext.hide()
+                }
+                Resource.Status.ERROR -> {
+                    mBinding.pbAuth.hide()
+                    mBinding.btnNext.show()
+                    toast("Что-то пошло не так. Попробуйте еще раз")
+                }
+            }
+        })
+    }
+
+    private fun saveData(token: String) {
+        HackQiwiApp.getInstance().saveAuthToken(token)
+        HackQiwiApp.getInstance().savePhone(mBinding.etPhone.text.toString())
+        HackQiwiApp.getInstance().savePassword(mBinding.etPassword.text.toString())
+        onShowSmsFragment(mBinding.etPhone.text.toString())
     }
 
     private fun onShowMainFragment() {
         findNavController().navigate(R.id.mainFragment)
-    }
-
-    private fun formHintString(string: String): String {
-        val defaultNumber = getString(R.string.phone_default_number)
-        return string + defaultNumber.substring(string.length)
     }
 
     private fun onShowSmsFragment(phone: String) {
@@ -66,11 +90,6 @@ class AuthFragment : Fragment() {
         }
         val bundle = bundleOf("phone" to phone)
         findNavController().navigate(R.id.smsBsd, bundle)
-    }
-
-    private fun onShowErrorPhone() {
-        hideKeyboard()
-        //findNavController().navigate(R.id.errorPhoneBsd)
     }
 
     companion object {
