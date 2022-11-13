@@ -46,99 +46,7 @@ class AuthFragment : Fragment() {
     }
 
     private fun initUi() = with(mBinding) {
-        /*
-        btnNext.onClick {
-            onShowMainFragment()
-        }
-         */
 
-    }
-
-    private fun setUpEditText() {
-
-        mBinding.etPhone.setOnTouchListener { v, event ->
-            mBinding.etPhone.showKeyboard()
-            return@setOnTouchListener mBinding.etPhone.hasFocus()
-        }
-        mBinding.etPhone.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                mBinding.etPhone.setSelection(
-                    mBinding.etPhone.text!!.length
-                )
-            }
-        }
-
-        regex = Regex("(\\+?\\d)(\\d{0,3})(\\d{0,3})(\\d{0,2})(\\d{0,2})")
-
-        mBinding.etPhone.doOnTextChanged { text, position, deleted, count ->
-            if (phone == text.toString()) {
-                return@doOnTextChanged
-            }
-            phone = text.toString().replace(" ", "")
-            Log.d(TAG, "$count---$position---$deleted--$text")
-            if (text!!.startsWith(getBaseCountryCode())) {
-                if (text.length == PHONE_LENGTH + 1 && deleted == 0) {
-                    setUpObserver(text.toString())
-                }
-            } else {
-                if (position < BORDER_POSITION && text.length > BORDER_POSITION) {
-                    Log.d(TAG, "ERROR TEXT: ___ ${text.subSequence(3, text.length)}")
-                    phone = getBaseCountryCode() + text.subSequence(3, text.length)
-                } else {
-                    phone = getBaseCountryCode()
-                }
-            }
-
-            val phoneParts = regex.find(phone)
-                ?.groupValues
-                ?.drop(1)
-                ?.filter { part ->
-                    part.isNotEmpty()
-                }
-            Log.d(TAG, "phoneParts --- ${phoneParts.toString()}")
-            phone = phoneParts!!.joinToString(" ")
-            Log.d(TAG, "phone --- '$phone'")
-            mBinding.etPhone.setText(phone)
-            mBinding.etHide.hint = formHintString(phone)
-            mBinding.etPhone.setSelection(position + count + (phone.length - text.length))
-        }
-
-        mBinding.etPhone.onFocusChangeListener = View.OnFocusChangeListener { view, hasfocus ->
-            if (hasfocus) {
-                mBinding.etPhone.setText(getBaseCountryCode())
-            } else {
-                mBinding.etPhone.setHint(R.string.phone_default_number)
-            }
-        }
-
-        mBinding.etPhone.setOnKeyListener(object : View.OnKeyListener {
-            override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
-                if (keyCode == KeyEvent.KEYCODE_ENTER && phone.length == PHONE_LENGTH + 1 && event?.action == KeyEvent.ACTION_UP) {
-                    //onShowSmsFragment(phone)
-                    setUpObserver(mBinding.etPhone.text.toString())
-                }
-                return false
-            }
-        })
-    }
-
-    private fun setUpObserver(text: String) {
-        viewModel.sendPhone(Phone(text.replace(" ", ""))).observeOnce(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Resource.Status.SUCCESS -> {
-                    Log.d(it.data.toString(), TAG1)
-                    onShowSmsFragment(text)
-                    DarsApp.getInstance().saveToken(it.data.toString())
-                }
-                Resource.Status.LOADING -> {
-
-                }
-                Resource.Status.ERROR -> {
-                    Log.d(it.message, TAG1)
-                    onShowErrorPhone()
-                }
-            }
-        })
     }
 
     private fun onShowMainFragment() {
@@ -162,7 +70,7 @@ class AuthFragment : Fragment() {
 
     private fun onShowErrorPhone() {
         hideKeyboard()
-        findNavController().navigate(R.id.errorPhoneBsd)
+        //findNavController().navigate(R.id.errorPhoneBsd)
     }
 
     companion object {

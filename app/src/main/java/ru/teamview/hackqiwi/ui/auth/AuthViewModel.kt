@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val sendLoginUseCase: SendLoginUseCase,
+    //private val sendLoginUseCase: SendLoginUseCase,
     private val registrationUseCase: RegistrationUseCase,
     private val confirmRegistrationUseCase: ConfirmRegistrationUseCase
     ) : ViewModel() {

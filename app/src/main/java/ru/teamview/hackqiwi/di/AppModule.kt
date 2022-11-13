@@ -12,8 +12,11 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.teamview.hackqiwi.ROOT_API
+import ru.teamview.hackqiwi.data.datasource.PhoneDataSource
 import ru.teamview.hackqiwi.data.datasource.TempDataSource
+import ru.teamview.hackqiwi.data.repository.PhoneRepository
 import ru.teamview.hackqiwi.data.repository.TempBillsRepository
+import ru.teamview.hackqiwi.data.service.PhoneService
 import ru.teamview.hackqiwi.data.service.TempApiService
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -80,4 +83,16 @@ object AppModule {
     @Provides
     @Singleton
     fun provideTempDataSource(tempApiService: TempApiService) = TempDataSource(tempApiService)
+
+    @Singleton
+    @Provides
+    fun providePhoneRepository(phoneDataSource: PhoneDataSource) = PhoneRepository(phoneDataSource)
+
+    @Singleton
+    @Provides
+    fun providePhoneService(retrofit: Retrofit) : PhoneService = retrofit.create(PhoneService::class.java)
+
+    @Provides
+    @Singleton
+    fun providePhoneDataSource(phoneService: PhoneService) = PhoneDataSource(phoneService)
 }
